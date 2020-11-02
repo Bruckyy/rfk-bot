@@ -1,4 +1,5 @@
 import discord
+import os
 from discord.ext import commands
 from random import *
 
@@ -52,4 +53,4 @@ async def duel(ctx,p_1,p_2):
 
 
 
-bot.run("NjYxMzYwNjQxNzEzNjM1MzQx.XgqSGA.k4SRn8n8zt1tdpmtmhmeDmmMqX8")
+bot.run(os.environ['DISCORD_TOKEN'])
