@@ -35,6 +35,7 @@ def rock_paper(p_1,p_2):
 
 @bot.event
 async def on_ready():
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('Les Travaux:tools:'))
     print("Bot Ready")
 
 @bot.command()
