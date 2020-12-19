@@ -1,7 +1,7 @@
 import discord
 import os
 from discord.ext import commands
-from random import *
+from random import randint
 
 bot= commands.Bot(command_prefix="$", description=":tools:")
 
@@ -50,7 +50,6 @@ async def role(ctx,role):
     liste=(list(dico_roles[role]))
     aff=liste[rand]
     await ctx.send(aff)
-
 
 
 
