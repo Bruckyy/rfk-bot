@@ -54,7 +54,7 @@ async def role(ctx,role):
     await ctx.send(aff)
 
 @bot.command()
-async def up_rio(name,realm,region):
+async def up_rio(ctx,name,realm,region):
     driver=webdriver.Firefox()
     driver.get(f'https://raider.io/characters/{region}/{realm}/{name}')
     sleep(2)
