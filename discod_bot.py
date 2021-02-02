@@ -10,9 +10,9 @@ bot= commands.Bot(command_prefix="$", description=":tools:")
 def rock_paper(p_1,p_2):
     roll=randint(1,2)
     if roll==1:
-        result=f"{p_1} a Gagné !!"
+        result=f"{p_1} a Gagné !"
     else:
-        result=f"{p_2} a Gagné !!"
+        result=f"{p_2} a Gagné !"
     return result
 
 @bot.event
