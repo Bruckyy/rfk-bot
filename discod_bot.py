@@ -53,23 +53,6 @@ async def role(ctx,role):
     aff=liste[rand]
     await ctx.send(aff)
 
-@bot.command()
-async def up_rio(ctx,name,realm,region):
-    driver=webdriver.Firefox()
-    driver.get(f'https://raider.io/characters/{region}/{realm}/{name}')
-    sleep(2)
-    cookie=driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div[2]/div/button[2]')
-    cookie.click()
-    sleep(0.5)
-    refresh=driver.find_element_by_xpath('//*[@id="content"]/div/div/div/div[2]/section[2]/section/div/div[2]/div[2]/section/button')
-    refresh.click()
-    sleep(0.5)
-    scan=driver.find_element_by_xpath('/html/body/div[3]/div/div/div/div[3]/button')
-    scan.click()
-    sleep(1)
-    driver.close()
-    await ctx.send(f'Raiderio correctly update for {name}')
-
 
 
 
