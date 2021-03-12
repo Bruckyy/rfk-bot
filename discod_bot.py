@@ -5,6 +5,15 @@ from random import randint
 from selenium import webdriver
 from time import sleep
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver=webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+
+
+
 bot= commands.Bot(command_prefix="$", description=":tools:")
 
 def rock_paper(p_1,p_2):
@@ -55,7 +64,6 @@ async def role(ctx,role):
 
 @bot.command()
 async def up_rio(ctx,name,realm,region):
-    driver=webdriver.Firefox()
     driver.get(f'https://raider.io/characters/{region}/{realm}/{name}')
     sleep(2)
     cookie=driver.find_element_by_xpath('/html/body/div[1]/div/div/div/div[2]/div/button[2]')
