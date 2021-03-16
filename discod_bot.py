@@ -1,9 +1,11 @@
 import discord
+import asyncio
 import os
 from discord.ext import commands
 from random import randint
 from selenium import webdriver
 from time import sleep
+
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -78,6 +80,17 @@ async def up_rio(ctx,name,realm,region):
     driver.close()
     await ctx.send(f'Raiderio correctly update for {name}-{realm}')
 
+@bot.command()
+@commands.has_permissions(kick_members=True)
+async def mute(ctx, member: discord.Member, mute_time : int):
+    guild = ctx.guild
+    for role in guild.roles:
+        if role.name == "Muted":
+            await member.add_roles(role)
+            await ctx.send("{} has has been muted!" .format(member.mention))
+            await asyncio.sleep(mute_time)
+            await member.remove_roles(role)
+            await ctx.send("{} has been unmuted!" .format(member.mention))
 
 
 
