@@ -85,13 +85,23 @@ async def up_rio(ctx,name,realm,region):
 async def mute(ctx, member: discord.Member, mute_time : int):
     guild = ctx.guild
     for role in guild.roles:
-        if role.name == "Muted":
-            await member.add_roles(role)
-            await ctx.send("{} has has been muted!" .format(member.mention))
-            await asyncio.sleep(mute_time)
-            await member.remove_roles(role)
-            await ctx.send("{} has been unmuted!" .format(member.mention))
+        if discord.Member=="":
+            if role.name == "Muted":
+                await member.add_roles(role)
+                await ctx.send("{} has been muted!" .format(member.mention))
+                await asyncio.sleep(mute_time)
+                await member.remove_roles(role)
+                await ctx.send("{} has been unmuted!" .format(member.mention))
 
+
+@bot.command()
+async def kraken(ctx,duration : int):
+    i=0
+    while i<duration:
+        await asyncio.sleep(1)
+        await ctx.send(f"Il ne reste que {duration-1} minutes pour vaincre le kraken")
+        i+=1
+    await ctx.send(f"Le kraken a surement été vaincu (au bout de {duration} minutes)")
 
 
 
