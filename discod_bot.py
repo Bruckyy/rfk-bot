@@ -99,7 +99,7 @@ async def kraken(ctx,duration : int):
     await ctx.send(f"Début du combat contre le kraken il te reste {duration} minutes ! Courage !")
     await asyncio.sleep(duration-duration//2)
     await ctx.send(f"Il ne reste que {duration//2} minutes pour vaincre le kraken")
-    await ctx.send(f"Le kraken a surement été vaincu (au bout de {duration} minutes)")
+    await ctx.send(f"Le kraken a surement été vaincu au bout de {duration} minutes")
 
 
 
