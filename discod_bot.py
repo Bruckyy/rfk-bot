@@ -95,11 +95,15 @@ async def mute(ctx, member: discord.Member, mute_time : int):
 
 
 @bot.command()
-async def kraken(ctx,duration : int):
-    await ctx.send(f"Début du combat contre le kraken il te reste {duration} minutes ! Courage !")
-    await asyncio.sleep((duration-duration//2)*60)
-    await ctx.send(f"Il ne reste que {duration//2} minutes pour vaincre le kraken")
-    await ctx.send(f"Le kraken a surement été vaincu au bout de {duration} minutes")
+async def kraken(ctx):
+    i=0
+    await ctx.send(f"Début du combat contre le kraken il te reste {duration} minutes !")$
+    await asyncio.sleep(60)
+    while i<7:
+        await ctx.send(f"Il te reste {i} minutes pour vaincre le kraken !")
+        await asyncio.sleep(7*60)
+        i+=1
+    
 
 
 
