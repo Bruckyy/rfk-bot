@@ -80,33 +80,6 @@ async def up_rio(ctx,name,realm,region):
     driver.close()
     await ctx.send(f'Raiderio correctly update for {name}-{realm}')
 
-@bot.command()
-@commands.has_permissions(kick_members=True)
-async def mute(ctx, member: discord.Member, mute_time : int):
-    guild = ctx.guild
-    for role in guild.roles:
-        if discord.Member=="":
-            if role.name == "Muted":
-                await member.add_roles(role)
-                await ctx.send("{} has been muted!" .format(member.mention))
-                await asyncio.sleep(mute_time)
-                await member.remove_roles(role)
-                await ctx.send("{} has been unmuted!" .format(member.mention))
-
-
-@bot.command()
-async def kraken(ctx):
-    i=0
-    await ctx.send(f"Début du combat contre le kraken il te reste {duration} minutes !")$
-    await asyncio.sleep(60)
-    while i<7:
-        await ctx.send(f"Il te reste {i} minutes pour vaincre le kraken !")
-        await asyncio.sleep(7*60)
-        i+=1
-    
-@bot.command()
-async def wr(ctx):
-    await ctx.send("En construction :tools:")
 
 
 bot.run(os.environ['DISCORD_TOKEN'])
