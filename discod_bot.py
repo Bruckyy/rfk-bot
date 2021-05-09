@@ -85,9 +85,9 @@ async def summoner(ctx,name,region):
     api_key =  'RGAPI-5751f05e-18a7-4904-a10e-8b155c05d3ae'
     watcher = LolWatcher(api_key)
     me = watcher.summoner.by_name(region,name)
-    my_ranked_stats = watcher.league.by.summer_(region,me['id'])
+    my_ranked_stats = watcher.league.by_summoner(region,me['id'])
     solo = my_ranked_stats[1]
-    winrate = solo["wins"]/(solo["wins"]+solo["losses"])
-    await ctx.send(f'Rank : {solo["tier"]} {solo["rank"]} LP : {solo["leaguePoints"]} Winrate : {winrate}')
+    winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
+    await ctx.send(f'Rank : {solo["tier"]} {solo["rank"]} LP : {solo["leaguePoints"]} Winrate : {winrate} % Wins: {solo['wins']} Losses : {solo['losses']}')
 
 bot.run(os.environ['DISCORD_TOKEN'])
