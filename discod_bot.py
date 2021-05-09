@@ -80,6 +80,14 @@ async def up_rio(ctx,name,realm,region):
     driver.close()
     await ctx.send(f'Raiderio correctly update for {name}-{realm}')
 
-
+@bot.command()
+async def summoner(ctx,name,region):
+    api_key =  'RGAPI-5751f05e-18a7-4904-a10e-8b155c05d3ae'
+    watcher = LolWatcher(api_key)
+    me = watcher.summoner.by_name(region,name)
+    my_ranked_stats = watcher.league.by.summer_(region,me['id'])
+    solo = my_ranked_stats[1]
+    winrate = solo["wins"]/(solo["wins"]+solo["losses"])
+    await ctx.send(f'Rank : {solo["tier"]} {solo["rank"]} LP : {solo["leaguePoints"]} Winrate : {winrate}')
 
 bot.run(os.environ['DISCORD_TOKEN'])
