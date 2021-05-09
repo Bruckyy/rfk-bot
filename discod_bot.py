@@ -5,7 +5,7 @@ from discord.ext import commands
 from random import randint
 from selenium import webdriver
 from time import sleep
-
+from riotwatcher import LolWatcher, ApiError
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -104,7 +104,9 @@ async def kraken(ctx):
         await asyncio.sleep(7*60)
         i+=1
     
-
+@bot.command()
+async def wr(ctx):
+    await ctx.send("En construction :tools:")
 
 
 bot.run(os.environ['DISCORD_TOKEN'])
