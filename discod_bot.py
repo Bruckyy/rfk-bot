@@ -55,7 +55,7 @@ async def champion(ctx):
 async def role(ctx,role):
     dico_roles={"top":["Aatrox","Akali","Cho'Gath","Darius","Dr.Mundo","Fiora","Gangplank","Garen","Illaoi","Irelia","Jax","Jayce","Kayle","Kennen","Kled","Lucian","Malphite","Maokai","Mordekaiser","Nasus","Poppy","Quinn","Renekton","Riven","Rumble","Sett","Shen","Singed","Sion","Sylas","Tahm Kench","Teemo","Tryndamere","Urgot","Vayne","Vladimir","Volibear","Wukong","Yasuo","Yone","Yorick","Ornn","Gnar","Camille"],
                 "jungle":["Amumu","Ekko","Elise","Evelynn","Fiddlesticks","Gragas","Graves","Hecarim","Yvern","Jarvan IV","Jax","Karthus","Kayn","Kha'Zix","Kindred","Lee Sin","Lillia","Maître Yi","Nidalee","Nocturne","Nunu et Willump","Olaf","Rammus","Rek'Sai","Rengar","Sejuani","Sett","Shaco","Shyvana","Skarner","Sylas","Taliyah","Trundle","Udyr","Vi","Volibear","Warwick","Xin Zhao","Zac","Viego"],
-                "mid":["Ahri","Akali","Anivia","Annie","Aurelion Sol","Azir","Cassiopeia","Corki","Diana","Ekko","Fizz","Galio","Heimerdinger","Irelia","Kassadin","Katarina","Leblanc","Lissandra","Lucian","Lux","Malzahar","Neeko","Orianna","Qiyana","Ryze","Seraphine","Sylas","Syndra","Talon","Twisted Fate","Veigar","Viktor","Vladimir","Xerath","Yasuo","Yone","Zed","Ziggs","Zoé"],
+                "mid":["Ahri","Akali","Anivia","Annie","Aurelion Sol","Azir","Cassiopeia","Corki","Diana","Ekko","Fizz","Galio","Heimerdinger","Irelia","Kassadin","Katarina","Leblanc","Lissandra","Lucian","Lux","Malzahar","Neeko","Orianna","Qiyana","Ryze","Seraphine","Sylas","Syndra","Talon","Twisted Fate","Veigar","Viktor","Vladimir","Xerath","Yasuo","Yone","Zed","Ziggs","Zoé","Gwen"],
                 "adc":["Aphelios","Ashe","Caitlyn","Draven","Ezreal","Jhin","Jinx","Kai'Sa","Kalista","Kog'Maw","Lucian","Miss Fortune","Samira","Senna","Sivir","Tristana","Twitch","Varus","Xayah","Yasuo"],
                 "supp":["Alistar","Bard","Blitzcrank","Brand","Braum","Janna","Karma","Leona","Lulu","Lux","Malphite","Maokai","Morgana","Nami","Nautilus","Pantheon","Pyke","Rakan","Senna","Seraphine","Sett","Sona","Soraka","Swain","Tahm Kench","Taric","Thresh","Vel'koz","Xerath","Yuumi","Zilean","Zyra","Rell"]
     }
@@ -65,24 +65,9 @@ async def role(ctx,role):
     await ctx.send(aff)
 
 @bot.command()
-async def up_rio(ctx,name,realm,region):
-    driver.get(f'https://raider.io/characters/{region}/{realm}/{name}')
-    sleep(3)
-    cookie=driver.find_element_by_xpath('//*[@id="qc-cmp2-ui"]/div[2]/div/button[2]')
-    cookie.click()
-    sleep(2)
-    refresh=driver.find_element_by_xpath('//*[@id="content"]/div/div/div/div[2]/section[2]/section/div/div[2]/div[2]/section/button')
-    refresh.click()
-    sleep(2)
-    scan=driver.find_element_by_xpath('//*[@id="updateNowModal"]/div[3]/button')
-    scan.click()
-    sleep(2)
-    driver.close()
-    await ctx.send(f'Raiderio correctly update for {name}-{realm}')
-
-@bot.command()
 async def summoner(ctx,name,region):
-    api_key =  'RGAPI-5751f05e-18a7-4904-a10e-8b155c05d3ae'
+    api_key = os.environ['RIOT_TOKEN']
+    region = region+'1'
     watcher = LolWatcher(api_key)
     me = watcher.summoner.by_name(region,name)
     my_ranked_stats = watcher.league.by_summoner(region,me['id'])
