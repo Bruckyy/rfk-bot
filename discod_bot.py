@@ -29,8 +29,7 @@ def summo(name,region,token):
     rank=solo["rank"]
     wins=solo["wins"]
     losses=solo["losses"]
-    aff=f"Rank: {tier} {rank} Winrate: {winrate}%  W: {wins} L: {losses}"
-    return aff
+    return solo
 
 
 
