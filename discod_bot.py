@@ -68,7 +68,11 @@ async def summoner(ctx,name,region):
     my_ranked_stats = watcher.league.by_summoner(region,me['id'])
     solo = my_ranked_stats[1]
     winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
-    aff=f"Rank: {tier} {rank} Winrate: {winrate}%  W: {wins} L: {losses}"
+    tier=solo["tier"]
+    rank=solo["rank"]
+    wins=solo["wins"]
+    losses=solo["losses"]
+    aff="Rank: " + tier +" "+ rank + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
     await ctx.send(aff)
 
 bot.run(os.environ['DISCORD_TOKEN'])
