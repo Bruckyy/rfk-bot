@@ -73,6 +73,8 @@ async def summoner(ctx,name,region):
     wins=solo["wins"]
     losses=solo["losses"]
     aff="Rank: " + tier +" "+ rank + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
+    aff2="SOLO RANKED informations for " + name 
+    await ctx.send(aff2)
     await ctx.send(aff)
 
 bot.run(os.environ['DISCORD_TOKEN'])
