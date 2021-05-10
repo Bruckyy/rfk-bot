@@ -66,7 +66,19 @@ async def summoner(ctx,name,region):
     watcher = LolWatcher(api_key)
     me = watcher.summoner.by_name(region,name)
     my_ranked_stats = watcher.league.by_summoner(region,me['id'])
-    solo = my_ranked_stats[1]
+    i=0
+    z=0
+    while i<len(my_ranked_stats):
+        val=list(my_ranked_stats[i].values())
+        j=0
+        while j<len(my_ranked_stats[i]):
+            if val[j]=='RANKED_SOLO_5x5':
+                z=i
+            j+=1
+
+        i+=1
+        
+    solo = my_ranked_stats[z]
     winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
     tier=solo["tier"]
     rank=solo["rank"]
