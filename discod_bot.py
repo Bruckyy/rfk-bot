@@ -8,7 +8,6 @@ from riotwatcher import LolWatcher, ApiError
 
 
 bot= commands.Bot(command_prefix="$", description=":tools:")
-client.remove_command('help')
 
 def rock_paper(p_1,p_2):
     roll=randint(1,2)
