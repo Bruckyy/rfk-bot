@@ -8,6 +8,7 @@ from riotwatcher import LolWatcher, ApiError
 
 
 bot= commands.Bot(command_prefix="$", description=":tools:")
+client.remove_command('help')
 
 def rock_paper(p_1,p_2):
     roll=randint(1,2)
@@ -61,8 +62,10 @@ async def role(ctx,role):
 
 @bot.command()
 async def summoner(ctx,name,region):
+    """
+    region: BR1/EUN1/EUW1/JP1/KR/LA1/LA2/NA1/OC1/TR1/RU
+    """
     api_key = os.environ['RIOT_TOKEN']
-    region = region+'1'
     watcher = LolWatcher(api_key)
     me = watcher.summoner.by_name(region,name)
     my_ranked_stats = watcher.league.by_summoner(region,me['id'])
@@ -77,16 +80,17 @@ async def summoner(ctx,name,region):
             j+=1
 
         i+=1
-        
+
     solo = my_ranked_stats[z]
     winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
     tier=solo["tier"]
     rank=solo["rank"]
     wins=solo["wins"]
     losses=solo["losses"]
+    nom=solo["summonerName"]
     lp=solo["leaguePoints"]
     aff="Rank: " + tier +" " + rank + " LP: "+ str(lp) + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
-    aff2="SOLO RANKED informations for " + name 
+    aff2="SOLO RANKED informations for " + nom 
     await ctx.send(aff2)
     await ctx.send(aff)
 
