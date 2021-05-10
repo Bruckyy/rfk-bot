@@ -73,7 +73,7 @@ async def summoner(ctx,name,region):
     wins=solo["wins"]
     losses=solo["losses"]
     lp=solo["leaguePoints"]
-    aff="Rank: " + tier +" " + rank + " LP: "+ lp + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
+    aff="Rank: " + tier +" " + rank + " LP: "+ str(lp) + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
     aff2="SOLO RANKED informations for " + name 
     await ctx.send(aff2)
     await ctx.send(aff)
