@@ -17,6 +17,24 @@ def rock_paper(p_1,p_2):
         result=f"{p_2} a Gagné !"
     return result
 
+def summo(name,region,token):
+    region=region+'1'
+    api_key = "token"
+    watcher = LolWatcher(api_key)
+    me = watcher.summoner.by_name(region,name)
+    my_ranked_stats = watcher.league.by_summoner(region,me['id'])
+    solo = my_ranked_stats[1]
+    winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
+    tier=solo["tier"]
+    rank=solo["rank"]
+    wins=solo["wins"]
+    losses=solo["losses"]
+    aff=f"Rank: {tier} {rank} Winrate: {winrate}%  W: {wins} L: {losses}"
+    return aff
+
+
+
+
 @bot.event
 async def on_ready():
     print("Bot Ready")
@@ -58,13 +76,7 @@ async def role(ctx,role):
 @bot.command()
 async def summoner(ctx,name,region):
     api_key = os.environ['RIOT_TOKEN']
-    region = region+'1'
-    watcher = LolWatcher(api_key)
-    me = watcher.summoner.by_name(region,name)
-    my_ranked_stats = watcher.league.by_summoner(region,me['id'])
-    solo = my_ranked_stats[1]
-    winrate = round(solo["wins"]/(solo["wins"]+solo["losses"])*100)
-    aff="Rank : " + solo["tier"] + " " + solo["rank"] + " LP : "+ solo["leaguePoints"] +" Winrate : " +  winrate+ "%" + " Wins : "+solo["wins"] + " Losses : " + solo["losses"]
+    aff=summo(name,region,api_key)
     await ctx.send(aff)
 
 bot.run(os.environ['DISCORD_TOKEN'])
