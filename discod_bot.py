@@ -1,7 +1,6 @@
 import discord
 import asyncio
 import os
-from discord.colour import Color
 from discord.ext import commands
 from random import randint
 from time import sleep
@@ -90,12 +89,8 @@ async def summoner(ctx,name,region):
     nom=solo["summonerName"]
     lp=solo["leaguePoints"]
     aff="Rank: " + tier +" " + rank + " LP: "+ str(lp) + " Winrate: " + str(winrate)+"%"+ " W: " + str(wins) + " L: " + str(losses)
-    aff2="SOLO RANKED informations for " + nom
-    embed = discord.Embed(
-        title=aff2
-        color=discord.Color.blue(),
-        description =aff
-    ) 
-    await ctx.send(embed=embed)
+    aff2="SOLO RANKED informations for " + nom 
+    await ctx.send(aff2)
+    await ctx.send(aff)
 
 bot.run(os.environ['DISCORD_TOKEN'])
