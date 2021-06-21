@@ -96,6 +96,7 @@ async def summoner(ctx,name,region):
 
 @bot.command()
 async def wiki(ctx,sub):
+    wikipedia.set_lang("fr")
     result= wikipedia.page(sub)
     await ctx.send(result.summary)
 
