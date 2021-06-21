@@ -1,6 +1,7 @@
 import discord
 import asyncio
 import os
+import wikipedia
 from discord.ext import commands
 from random import randint
 from time import sleep
@@ -92,5 +93,11 @@ async def summoner(ctx,name,region):
     aff2="SOLO RANKED informations for " + nom 
     await ctx.send(aff2)
     await ctx.send(aff)
+
+@bot.command()
+async def wiki(ctx,sub):
+    result= wikipedia.page(sub)
+    await ctx.send(result.summary)
+
 
 bot.run(os.environ['DISCORD_TOKEN'])
