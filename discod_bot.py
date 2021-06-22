@@ -53,7 +53,7 @@ with open('champ.json') as json_file:
         champ = json.load(json_file)
     rand=randint(0,len(champ[role])-1)
     liste=(list(champ[role]))
-    await ctx.send(liste[rand]r)
+    await ctx.send(liste[rand])
 
 @bot.command()
 async def summoner(ctx,name,region):
