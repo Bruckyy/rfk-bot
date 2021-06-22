@@ -97,11 +97,13 @@ async def summoner(ctx,name,region):
 @bot.command()
 async def wiki(ctx,sub):
     """
-    Affiche la page wikipedia de la personne passé en paramétre
+    Affiche la page wikipedia passé en paramétre
     """
-    wikipedia.set_lang("fr")
-    result= wikipedia.page(sub)
-    await ctx.send(result.summary)
-
+    try:
+        wikipedia.set_lang("fr")
+        result= wikipedia.page(sub)
+        await ctx.send(result.summary)
+    except:
+        await ctx.send("Page: "+sub+" Introuvable")
 
 bot.run(os.environ['DISCORD_TOKEN'])
