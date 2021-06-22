@@ -31,6 +31,10 @@ async def dice(ctx):
     await ctx.send(f"Dé : {randint(1,6)}")
 
 @bot.command()
+async def roll(ctx,nb):
+    await ctx.send(f"Roll : {randint(1,nb)}")
+
+@bot.command()
 async def opgg(ctx, name):
     summ_name=name.replace(" ","")
     await ctx.send(f"https://euw.op.gg/summoner/userName={summ_name.lower()}")
