@@ -32,7 +32,7 @@ async def dice(ctx):
 
 @bot.command()
 async def roll(ctx, nb):
-    await ctx.send("Roll : "+randint(1,nb))
+    await ctx.send("Roll : "+randint(1,int(nb)))
 
 @bot.command()
 async def opgg(ctx, name):
