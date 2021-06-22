@@ -49,11 +49,11 @@ async def champion(ctx):
 
 @bot.command()
 async def role(ctx,role):
-with open('champ.json') as json_file:
+with open('rfk-bot/champ.json') as json_file:
         champ = json.load(json_file)
     rand=randint(0,len(champ[role])-1)
     liste=(list(champ[role]))
-    await ctx.send(liste[rand]r)
+    await ctx.send(liste[rand])
 
 @bot.command()
 async def summoner(ctx,name,region):
