@@ -110,4 +110,16 @@ async def wiki(ctx,sub):
     except:
         await ctx.send("Page: "+sub+" Introuvable")
 
+@bot.command()
+async def escalier(ctx,user):
+    user = user.replace("<","")
+    user = user.replace("@","")
+    user = user.replace(">","")
+    member = client.get_member(user)
+    channel = client.get_channel(655492526379237400)  
+    await member.move_to(channel)
+    channel = client.get_channel(658004514191966229)  
+    await member.move_to(channel)
+    
+
 bot.run(os.environ['DISCORD_TOKEN'])
