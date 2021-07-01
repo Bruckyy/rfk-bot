@@ -120,6 +120,6 @@ async def escalier(ctx,user):
     await member.move_to(channel)
     channel = client.get_channel(658004514191966229)  
     await member.move_to(channel)
-    
+  #e  
 
 bot.run(os.environ['DISCORD_TOKEN'])
