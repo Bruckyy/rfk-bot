@@ -111,11 +111,11 @@ async def wiki(ctx,sub):
         await ctx.send("Page: "+sub+" Introuvable")
 
 @bot.command()
-async def escalier(ctx,user):
-    user = user.replace("<","")
-    user = user.replace("@","")
-    user = user.replace(">","")
-    member = client.get_member(user)
+async def escalier(ctx,name):
+    id = name.replace("<","")
+    id = name.replace("@","")
+    id = name.replace(">","")
+    member = client.get_member(name)
     channel = client.get_channel(655492526379237400)  
     await member.move_to(channel)
     channel = client.get_channel(658004514191966229)  
