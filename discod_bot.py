@@ -153,6 +153,8 @@ async def postfixe(ctx,a):
                 pile=depiler(pile)
                 pile.append(res)
         if w==':':
+            if int(pile[len(pile)-2])==0 or int(pile[len(pile)-1])==0:
+                await ctx.send("Erreur dans l'expression: on ne peut diviser par 0")
             if not estVide(pile):
                 res=int(pile[len(pile)-2])/int(pile[len(pile)-1])
                 pile=depiler(pile)
