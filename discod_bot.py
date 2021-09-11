@@ -122,6 +122,10 @@ async def postfixe(ctx,a):
     def detection(chaine):
         chiffre=0
         ope=0
+        if chaine[0]==':' or chaine[0]=='+' or chaine[0]=='*' or chaine[0]=='-':
+            return False
+        if chaine[1]==':' or chaine[1]=='+' or chaine[1]=='*' or chaine[1]=='-':
+            return False
         for char in chaine:
             if ord(char)>=48 and ord(char)<=57:
                 chiffre+=1
