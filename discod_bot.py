@@ -53,10 +53,10 @@ async def champion(ctx):
 
 @bot.command()
 async def role(ctx,role):
-    dico_roles={"top":["Aatrox","Akali","Cho'Gath","Darius","Dr.Mundo","Fiora","Gangplank","Garen","Illaoi","Irelia","Jax","Jayce","Kayle","Kennen","Kled","Lucian","Malphite","Maokai","Mordekaiser","Nasus","Poppy","Quinn","Renekton","Riven","Rumble","Sett","Shen","Singed","Sion","Sylas","Tahm Kench","Teemo","Tryndamere","Urgot","Vayne","Vladimir","Volibear","Wukong","Yasuo","Yone","Yorick","Ornn","Gnar","Camille"],
+    dico_roles={"top":["Aatrox","Akali","Cho'Gath","Darius","Dr.Mundo","Fiora","Gangplank","Garen","Illaoi","Irelia","Jax","Jayce","Kayle","Kennen","Kled","Lucian","Malphite","Maokai","Mordekaiser","Nasus","Poppy","Quinn","Renekton","Riven","Rumble","Sett","Shen","Singed","Sion","Sylas","Tahm Kench","Teemo","Tryndamere","Urgot","Vayne","Vladimir","Volibear","Wukong","Yasuo","Yone","Yorick","Ornn","Gnar","Camille","Gwen"],
                 "jungle":["Amumu","Ekko","Elise","Evelynn","Fiddlesticks","Gragas","Graves","Hecarim","Yvern","Jarvan IV","Jax","Karthus","Kayn","Kha'Zix","Kindred","Lee Sin","Lillia","Maître Yi","Nidalee","Nocturne","Nunu et Willump","Olaf","Rammus","Rek'Sai","Rengar","Sejuani","Sett","Shaco","Shyvana","Skarner","Sylas","Taliyah","Trundle","Udyr","Vi","Volibear","Warwick","Xin Zhao","Zac","Viego"],
-                "mid":["Ahri","Akali","Anivia","Annie","Aurelion Sol","Azir","Cassiopeia","Corki","Diana","Ekko","Fizz","Galio","Heimerdinger","Irelia","Kassadin","Katarina","Leblanc","Lissandra","Lucian","Lux","Malzahar","Neeko","Orianna","Qiyana","Ryze","Seraphine","Sylas","Syndra","Talon","Twisted Fate","Veigar","Viktor","Vladimir","Xerath","Yasuo","Yone","Zed","Ziggs","Zoé","Gwen"],
-                "adc":["Aphelios","Ashe","Caitlyn","Draven","Ezreal","Jhin","Jinx","Kai'Sa","Kalista","Kog'Maw","Lucian","Miss Fortune","Samira","Senna","Sivir","Tristana","Twitch","Varus","Xayah","Yasuo"],
+                "mid":["Ahri","Akali","Anivia","Annie","Aurelion Sol","Azir","Cassiopeia","Corki","Diana","Ekko","Fizz","Galio","Heimerdinger","Irelia","Kassadin","Katarina","Leblanc","Lissandra","Lucian","Lux","Malzahar","Neeko","Orianna","Qiyana","Ryze","Seraphine","Sylas","Syndra","Talon","Twisted Fate","Veigar","Viktor","Vladimir","Xerath","Yasuo","Yone","Zed","Ziggs","Zoé","Akshan"],
+                "adc":["Aphelios","Ashe","Caitlyn","Draven","Ezreal","Jhin","Jinx","Kai'Sa","Kalista","Kog'Maw","Lucian","Miss Fortune","Samira","Senna","Sivir","Tristana","Twitch","Varus","Xayah","Yasuo","Akshan"],
                 "supp":["Alistar","Bard","Blitzcrank","Brand","Braum","Janna","Karma","Leona","Lulu","Lux","Malphite","Maokai","Morgana","Nami","Nautilus","Pantheon","Pyke","Rakan","Senna","Seraphine","Sett","Sona","Soraka","Swain","Tahm Kench","Taric","Thresh","Vel'koz","Xerath","Yuumi","Zilean","Zyra","Rell"]
     }
     rand=randint(0,len(dico_roles[role])-1)
@@ -111,12 +111,55 @@ async def wiki(ctx,sub):
         await ctx.send("Page: "+sub+" Introuvable")
 
 @bot.command()
-async def escalier(ctx,id):
-    member = client.get_member(id)
-    channel = client.get_channel(655492526379237400)  
-    await member.move_to(channel)
-    channel = client.get_channel(658004514191966229)  
-    await member.move_to(channel)
-  #e  
-
+async def postfixe(ctx,a):
+    def estVide(pile):
+        return len(pile)==0
+    def depiler(pile):
+        pile.pop()
+        pile.pop()
+        return pile
+    
+    def detection(chaine):
+        chiffre=0
+        ope=0
+        for char in chaine:
+            if ord(char)>=48 and ord(char)<=57:
+                chiffre+=1
+            if char=='*' or char=='+' or char=='/' or char=='-':
+                ope+=1
+        return chiffre==ope+1
+        
+    if not detection(a):
+        await ctx.send("Il ya une erreur dans l'expression postfixée")
+        return
+        
+    pile=[]
+    i=0
+    for w in a:
+        res=0
+        if w=='-':
+            if not estVide(pile):
+                res=int(pile[len(pile)-2])-int(pile[len(pile)-1])
+                pile=depiler(pile)
+                pile.append(res)
+        if w=='+':
+            if not estVide(pile):
+                res=int(pile[len(pile)-2])+int(pile[len(pile)-1])
+                pile=depiler(pile)
+                pile.append(res)
+        if w=='*':
+            if not estVide(pile):
+                res=int(pile[len(pile)-2])*int(pile[len(pile)-1])
+                pile=depiler(pile)
+                pile.append(res)
+        if w==':':
+            if not estVide(pile):
+                res=int(pile[len(pile)-2])/int(pile[len(pile)-1])
+                pile=depiler(pile)
+                pile.append(res)
+        if ord(w)>=48 and ord(w)<=57:
+            pile.append(w)
+        i+=1
+    await ctx.send(f"Résultat: {pile[0]}")
+    
 bot.run(os.environ['DISCORD_TOKEN'])
