@@ -125,7 +125,7 @@ async def postfixe(ctx,a):
         for char in chaine:
             if ord(char)>=48 and ord(char)<=57:
                 chiffre+=1
-            if char=='*' or char=='+' or char=='/' or char=='-':
+            if char=='*' or char=='+' or char==':' or char=='-':
                 ope+=1
         return chiffre==ope+1
         
