@@ -130,7 +130,7 @@ async def postfixe(ctx,a):
         return chiffre==ope+1
         
     if not detection(a):
-        await ctx.send("Il ya une erreur dans l'expression postfixée")
+        await ctx.send("Il y a une erreur dans l'expression postfixée")
         return
         
     pile=[]
