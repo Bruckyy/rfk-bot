@@ -19,9 +19,6 @@ def rock_paper(p_1,p_2):
     return result
 
 
-
-
-
 @bot.event
 async def on_ready():
     print("Bot Ready")
