@@ -24,12 +24,13 @@ async def on_ready():
     print("Bot Ready")
 
 @bot.command()
-async def dice(ctx):
-    await ctx.send(f"Dé : {randint(1,6)}")
+async def dice(ctx,m=-1):
+    if m==-1:
+        await ctx.send(f"Dé à 6 faces : {randint(1,6)}")
+        return None
+    if m!=0:
+        await ctx.send(f"Dé à {m} faces : {randint(1,m)}")
 
-@bot.command()
-async def roll(ctx, nb):
-    await ctx.send("Roll : "+randint(1,int(nb)))
 
 @bot.command()
 async def opgg(ctx, name):
