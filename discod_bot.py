@@ -220,9 +220,9 @@ async def team(ctx,players):
 
     while len(team2)!=5:
         trg=randint(0,9)
-        if players[trg] not in team2:
+        if players[trg] not in team2 and players[trg] not in team1:
             team2.append(players[trg])
-            
+
     await ctx.send(f"Première équipe : {team1}   |   Deuxième Équipe : {team2} ")
  
 
