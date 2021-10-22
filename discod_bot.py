@@ -208,6 +208,23 @@ async def play(ctx, url):
 
     await ctx.send(f'**Music: **{url}')
 
+@bot.command()
+async def team(ctx,players):
+    players=players.split(",")
+    team1=[]
+    team2=[]
+    while len(team1)!=5:
+        trg=randint(0,9)
+        if players[trg] not in team1:
+            team1.append(players[trg])
+
+    while len(team2)!=5:
+        trg=randint(0,9)
+        if players[trg] not in team2:
+            team2.append(players[trg])
+            
+    await ctx.send(f"Première équipe : {team1}   |   Deuxième Équipe : {team2} ")
+ 
 
 
 bot.run(os.environ['DISCORD_TOKEN'])
