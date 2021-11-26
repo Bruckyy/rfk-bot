@@ -223,7 +223,7 @@ async def team(ctx,players):
         if players[trg] not in team2 and players[trg] not in team1:
             team2.append(players[trg])
 
-    await ctx.send(f"Première équipe : {team1}   |   Deuxième Équipe : {team2} ")
+    await ctx.send(f"Première équipe : {team1}  | |   Deuxième Équipe : {team2} ")
  
 
 
