@@ -173,40 +173,67 @@ async def postfixe(ctx,a):
         i+=1
     await ctx.send(f"Résultat: {pile[0]}")
 
-
-ydl_opts = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-}   
-
-def endSong(guild, path):
-    os.remove(path)                                   
-
-@bot.command(pass_context=True)
-async def play(ctx, url):
-    if not ctx.message.author.voice:
-        await ctx.send('you are not connected to a voice channel')
+@bot.command()
+async def play(ctx, url : str):
+    song_there = os.path.isfile("song.mp3")
+    try:
+        if song_there:
+            os.remove("song.mp3")
+    except PermissionError:
+        await ctx.send("Wait for the current playing music to end or use the 'stop' command")
         return
 
-    else:
-        channel = ctx.message.author.voice.channel
+    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
+    await voiceChannel.connect()
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
 
-    voice_client = await channel.connect()
-
-    guild = ctx.message.guild
-
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        file = ydl.extract_info(url, download=True)
-        path = str(file['title']) + "-" + str(file['id'] + ".mp3")
+        ydl.download([url])
+    for file in os.listdir("./"):
+        if file.endswith(".mp3"):
+            os.rename(file, "song.mp3")
+    voice.play(discord.FFmpegPCMAudio("song.mp3"))
 
-    voice_client.play(discord.FFmpegPCMAudio(path), after=lambda x: endSong(guild, path))
-    voice_client.source = discord.PCMVolumeTransformer(voice_client.source, 1)
 
-    await ctx.send(f'**Music: **{url}')
+@bot.command()
+async def leave(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice.is_connected():
+        await voice.disconnect()
+    else:
+        await ctx.send("The bot is not connected to a voice channel.")
+
+
+@bot.command()
+async def pause(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice.is_playing():
+        voice.pause()
+    else:
+        await ctx.send("Currently no audio is playing.")
+
+
+@bot.command()
+async def resume(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    if voice.is_paused():
+        voice.resume()
+    else:
+        await ctx.send("The audio is not paused.")
+
+
+@bot.command()
+async def stop(ctx):
+    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
+    voice.stop()
 
 @bot.command()
 async def team(ctx,players):
