@@ -21,8 +21,8 @@ def rock_paper(p_1,p_2):
 
 @bot.event
 async def on_ready():
-    print("Bot Ready")
-
+    print("***********************************\n************ Bot Ready ************\n***********************************")
+           
 @bot.command()
 async def dice(ctx,m=-1):
     if m==-1:
@@ -215,10 +215,10 @@ async def team(ctx,players):
     team2=[]
     i=0
     while players:
-        if randint(0,1) == 0 and len(team1)<5:
+        if randint(0,1) == 0 and len(team1)<4:
             team1.append(players[0])
             players.remove(players[0])
-        if randint(0,1) == 1 and len(team2)<5:
+        if randint(0,1) == 1 and len(team2)<4:
             team2.append(players[0])
             players.remove(players[0])
         i+=1
