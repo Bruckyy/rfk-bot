@@ -215,10 +215,10 @@ async def team(ctx,players):
     team2=[]
     i=0
     while players:
-        if randint(0,1) == 0:
+        if randint(0,1) == 0 and len(team1)<5:
             team1.append(players[0])
             players.remove(players[0])
-        else:
+        if randint(0,1) == 1 and len(team2)<5:
             team2.append(players[0])
             players.remove(players[0])
         i+=1
