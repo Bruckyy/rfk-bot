@@ -227,7 +227,7 @@ async def team(ctx,players):
     for player in team1:
         aff+=f" -{player}\n"
 
-    aff="Deuxième équipe :\n"
+    aff+="Deuxième équipe :\n"
     for player in team2:
         aff+=f" -{player}\n"
 
