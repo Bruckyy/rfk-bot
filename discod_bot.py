@@ -231,7 +231,6 @@ async def team(ctx,players):
     for player in team2:
         aff+=f" -{player}\n"
 
-
     await ctx.send(aff)
  
 
