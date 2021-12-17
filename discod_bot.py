@@ -213,15 +213,15 @@ async def team(ctx,players):
     players=players.split(",")
     team1=[]
     team2=[]
-    while len(team1)!=5:
-        trg=randint(0,9)
-        if players[trg] not in team1:
-            team1.append(players[trg])
-
-    while len(team2)!=5:
-        trg=randint(0,9)
-        if players[trg] not in team2 and players[trg] not in team1:
-            team2.append(players[trg])
+    i=0
+    while players:
+        if randint(0,1) == 0:
+            team1.append(players[i])
+            players.remove(players[0])
+        else:
+            team2.append(players[i])
+            players.remove(players[0])
+        i+=1
 
     await ctx.send(f"Première équipe :\n  -{team1[0]} \n  -{team1[1]} \n  -{team1[2]} \n  -{team1[3]} \n  -{team1[4]} \n\n Deuxième Équipe :\n  -{team2[0]} \n  -{team2[1]} \n  -{team2[2]} \n  -{team2[3]} \n  -{team2[4]} ")
  
