@@ -21,8 +21,8 @@ def rock_paper(p_1,p_2):
 
 @bot.event
 async def on_ready():
-    print("***********************************\n************ Bot Ready ************\n***********************************")
-           
+    print("Bot Ready")
+
 @bot.command()
 async def dice(ctx,m=-1):
     if m==-1:
@@ -213,25 +213,17 @@ async def team(ctx,players):
     players=players.split(",")
     team1=[]
     team2=[]
-    i=0
-    while players:
-        if randint(0,1) == 0 and len(team1)<4:
-            team1.append(players[0])
-            players.remove(players[0])
-        if randint(0,1) == 1 and len(team2)<4:
-            team2.append(players[0])
-            players.remove(players[0])
-        i+=1
+    while len(team1)!=5:
+        trg=randint(0,9)
+        if players[trg] not in team1:
+            team1.append(players[trg])
 
-    aff="Première équipe :\n"
-    for player in team1:
-        aff+=f" -{player}\n"
+    while len(team2)!=5:
+        trg=randint(0,9)
+        if players[trg] not in team2 and players[trg] not in team1:
+            team2.append(players[trg])
 
-    aff+="Deuxième équipe :\n"
-    for player in team2:
-        aff+=f" -{player}\n"
-
-    await ctx.send(aff)
+    await ctx.send(f"Première équipe :\n  -{team1[0]} \n  -{team1[1]} \n  -{team1[2]} \n  -{team1[3]} \n  -{team1[4]} \n\n Deuxième Équipe :\n  -{team2[0]} \n  -{team2[1]} \n  -{team2[2]} \n  -{team2[3]} \n  -{team2[4]} ")
  
 
 
