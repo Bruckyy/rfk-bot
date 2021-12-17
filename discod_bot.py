@@ -223,7 +223,16 @@ async def team(ctx,players):
             players.remove(players[0])
         i+=1
 
-    await ctx.send(f"Première équipe :\n  -{team1[0]} \n  -{team1[1]} \n  -{team1[2]} \n  -{team1[3]} \n  -{team1[4]} \n\n Deuxième Équipe :\n  -{team2[0]} \n  -{team2[1]} \n  -{team2[2]} \n  -{team2[3]} \n  -{team2[4]} ")
+    aff="Première équipe :\n"
+    for player in team1:
+        aff+=f" -{player}\n"
+
+    aff="Deuxième équipe :\n"
+    for player in team2:
+        aff+=f" -{player}\n"
+
+
+    await ctx.send(aff)
  
 
 
