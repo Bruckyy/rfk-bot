@@ -6,7 +6,6 @@ from discord.ext import commands
 from random import randint
 from time import sleep
 from riotwatcher import LolWatcher, ApiError
-from dotenv import load_dotenv
 from discord.ext import commands
 from discord.utils import get
 from discord import FFmpegPCMAudio
