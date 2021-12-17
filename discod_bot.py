@@ -6,7 +6,12 @@ from discord.ext import commands
 from random import randint
 from time import sleep
 from riotwatcher import LolWatcher, ApiError
-import youtube_dl
+from dotenv import load_dotenv
+from discord.ext import commands
+from discord.utils import get
+from discord import FFmpegPCMAudio
+from discord import TextChannel
+from youtube_dl import YoutubeDL
 
 bot= commands.Bot(command_prefix="$", description=":tools:")
 
@@ -173,67 +178,74 @@ async def postfixe(ctx,a):
         i+=1
     await ctx.send(f"Résultat: {pile[0]}")
 
+# command for bot to join the channel of the user, if the bot has already joined and is in a different channel, it will move to the channel the user is in
 @bot.command()
-async def play(ctx, url : str):
-    song_there = os.path.isfile("song.mp3")
-    try:
-        if song_there:
-            os.remove("song.mp3")
-    except PermissionError:
-        await ctx.send("Wait for the current playing music to end or use the 'stop' command")
+async def join(ctx):
+    channel = ctx.message.author.voice.channel
+    voice = get(bot.voice_clients, guild=ctx.guild)
+    if voice and voice.is_connected():
+        await voice.move_to(channel)
+    else:
+        voice = await channel.connect()
+
+
+# command to play sound from a youtube URL
+@bot.command()
+async def play(ctx, url):
+    YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist': 'True'}
+    FFMPEG_OPTIONS = {
+        'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
+    voice = get(bot.voice_clients, guild=ctx.guild)
+
+    if not voice.is_playing():
+        with YoutubeDL(YDL_OPTIONS) as ydl:
+            info = ydl.extract_info(url, download=False)
+        URL = info['url']
+        voice.play(FFmpegPCMAudio(URL, **FFMPEG_OPTIONS))
+        voice.is_playing()
+        await ctx.send('Bot is playing')
+
+# check if the bot is already playing
+    else:
+        await ctx.send("Bot is already playing")
         return
 
-    voiceChannel = discord.utils.get(ctx.guild.voice_channels, name='General')
-    await voiceChannel.connect()
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
 
-    ydl_opts = {
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-    }
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([url])
-    for file in os.listdir("./"):
-        if file.endswith(".mp3"):
-            os.rename(file, "song.mp3")
-    voice.play(discord.FFmpegPCMAudio("song.mp3"))
-
-
-@bot.command()
-async def leave(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    if voice.is_connected():
-        await voice.disconnect()
-    else:
-        await ctx.send("The bot is not connected to a voice channel.")
-
-
-@bot.command()
-async def pause(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    if voice.is_playing():
-        voice.pause()
-    else:
-        await ctx.send("Currently no audio is playing.")
-
-
+# command to resume voice if it is paused
 @bot.command()
 async def resume(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    if voice.is_paused():
+    voice = get(bot.voice_clients, guild=ctx.guild)
+
+    if not voice.is_playing():
         voice.resume()
-    else:
-        await ctx.send("The audio is not paused.")
+        await ctx.send('Bot is resuming')
 
 
+# command to pause voice if it is playing
+@bot.command()
+async def pause(ctx):
+    voice = get(bot.voice_clients, guild=ctx.guild)
+
+    if voice.is_playing():
+        voice.pause()
+        await ctx.send('Bot has been paused')
+
+
+# command to stop voice
 @bot.command()
 async def stop(ctx):
-    voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-    voice.stop()
+    voice = get(bot.voice_clients, guild=ctx.guild)
+
+    if voice.is_playing():
+        voice.stop()
+        await ctx.send('Stopping...')
+
+
+# command to clear channel messages
+@bot.command()
+async def clear(ctx, amount=5):
+    await ctx.channel.purge(limit=amount)
+    await ctx.send("Messages have been cleared")
 
 @bot.command()
 async def team(ctx,players):
