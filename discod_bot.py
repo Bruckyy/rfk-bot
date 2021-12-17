@@ -216,10 +216,10 @@ async def team(ctx,players):
     i=0
     while players:
         if randint(0,1) == 0:
-            team1.append(players[i])
+            team1.append(players[0])
             players.remove(players[0])
         else:
-            team2.append(players[i])
+            team2.append(players[0])
             players.remove(players[0])
         i+=1
 
