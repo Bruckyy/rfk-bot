@@ -197,7 +197,7 @@ async def team(ctx,*players):
 async def t(ctx,*msg):
     message = " ".join(msg)
     f = open("model.txt", "r")
-    if len(f.readlines())>=20:
+    if len(f.readlines())>=35:
         with open('model.txt', 'w') as f:
             f.write("The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Salut, qui est tu ?\nAI: Je suis une IA et mon prénom est RFK.\n")
     f.close()
