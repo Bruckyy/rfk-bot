@@ -2,5 +2,5 @@ discord
 datetime
 riotwatcher
 wikipedia
-youtube_dl
 PyNaCl
+openai
