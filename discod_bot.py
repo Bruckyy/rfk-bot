@@ -177,7 +177,7 @@ async def postfixe(ctx,a):
 
 
 @bot.command()
-async def team(ctx,players):
+async def team(ctx,*players):
     players=players.split(",")
     team1=[]
     team2=[]
@@ -198,7 +198,7 @@ async def t(ctx,*msg):
     message = " ".join(msg)
     f = open("model.txt", "r")
     if len(f.readlines())>=20:
-        with open('readme.txt', 'w') as f:
+        with open('model.txt', 'w') as f:
             f.write("The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Salut, qui est tu ?\nAI: Je suis une IA et mon prénom est RFK.\n")
     f.close()
     f = open("model.txt", "r")
