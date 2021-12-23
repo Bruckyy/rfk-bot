@@ -7,12 +7,10 @@ from random import randint
 from time import sleep
 from riotwatcher import LolWatcher, ApiError
 from discord.ext import commands
-from discord.utils import get
-from discord import FFmpegPCMAudio
-from discord import TextChannel
-from youtube_dl import YoutubeDL
+import openai
 
 bot= commands.Bot(command_prefix="$", description=":tools:")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def rock_paper(p_1,p_2):
     roll=randint(1,2)
@@ -193,8 +191,20 @@ async def team(ctx,players):
         if players[trg] not in team2 and players[trg] not in team1:
             team2.append(players[trg])
 
-    await ctx.send(f"Première équipe :\n  -{team1[0]} \n  -{team1[1]} \n  -{team1[2]} \n  -{team1[3]} \n  -{team1[4]} \n\n Deuxième Équipe :\n  -{team2[0]} \n  -{team2[1]} \n  -{team2[2]} \n  -{team2[3]} \n  -{team2[4]} ")
+    await ctx.send(f"Première équipe :\n  -{team1[0]} \n  -{team1[1]} \n  -{team1[2]} \n  -{team1[3]} \n  -{team1[4]} \n\n Deuxième Équipe :\n  -{team2[0]} \n  -{team2[1]} \n  -{team2[2]} \n  -{team2[3]} \n  -{team2[4]}")
  
-
+@bot.command()
+async def t(ctx,*msg):
+    message = " ".join(msg)
+    response = openai.Completion.create(
+        engine="davinci",
+        prompt=f"The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: {message}\nAI:",
+        temperature=0.9,
+        max_tokens=150,
+        top_p=1,
+        frequency_penalty=0.0,
+        presence_penalty=0.6,
+        stop=["\n", " Human:", " AI:"]
+    )
 
 bot.run(os.environ['DISCORD_TOKEN'])
