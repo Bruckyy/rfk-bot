@@ -177,7 +177,7 @@ async def postfixe(ctx,a):
 
 
 @bot.command()
-async def team(ctx,*players):
+async def team(ctx,players):
     players=players.split(",")
     team1=[]
     team2=[]
