@@ -206,5 +206,6 @@ async def t(ctx,*msg):
         presence_penalty=0.6,
         stop=["\n", " Human:", " AI:"]
     )
+    await ctx.send(response["choices"][0]["text"].split("\n")[0])
 
 bot.run(os.environ['DISCORD_TOKEN'])
