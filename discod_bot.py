@@ -196,9 +196,12 @@ async def team(ctx,players):
 @bot.command()
 async def t(ctx,*msg):
     message = " ".join(msg)
+    f = open("model.txt", "r")
+    training = "\n".join(f.readlines())
+    f.close()
     response = openai.Completion.create(
         engine="davinci",
-        prompt=f"The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: {message}\nAI:",
+        prompt=f"{training}\n\nHuman: {message}\nAI:",
         temperature=0.9,
         max_tokens=150,
         top_p=1,
@@ -206,6 +209,10 @@ async def t(ctx,*msg):
         presence_penalty=0.6,
         stop=["\n", " Human:", " AI:"]
     )
+    f = open("model.txt","a")
+    f.write("Human: "+message+"\n")
+    f.write("AI:"+response["choices"][0]["text"].split("\n")[0]+"\n")
+    f.close()
     await ctx.send(response["choices"][0]["text"].split("\n")[0])
 
 bot.run(os.environ['DISCORD_TOKEN'])
