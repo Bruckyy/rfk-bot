@@ -175,7 +175,6 @@ async def postfixe(ctx,a):
         i+=1
     await ctx.send(f"Résultat: {pile[0]}")
 
-
 @bot.command()
 async def team(ctx,players):
     players=players.split(",")
