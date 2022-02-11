@@ -219,4 +219,7 @@ async def t(ctx,*msg):
     f.close()
     await ctx.send(response["choices"][0]["text"].split("\n")[0])
 
+
+
+
 bot.run(os.environ['DISCORD_TOKEN'])
