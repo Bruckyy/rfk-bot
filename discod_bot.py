@@ -9,7 +9,14 @@ from riotwatcher import LolWatcher, ApiError
 from discord.ext import commands
 import openai
 
-bot= commands.Bot(command_prefix="$", description=":tools:")
+
+
+intents = discord.Intents.all()
+intents.members = True
+intents.typing = True
+intents.presences = True
+
+bot= commands.Bot(command_prefix="$", description=":tools:", intents=intents)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def rock_paper(p_1,p_2):
