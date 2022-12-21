@@ -18,17 +18,18 @@ intents.typing = True
 intents.presences = True
 
 bot = commands.Bot(command_prefix="$", description=":tools:", intents=intents)
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def search_video_on_youtube(query):
     # Préparer la requête à l'API de recherche YouTube
+    YOUTUBE_API_KEY = os.environ["YOUTUBE_API_KEY"]
     request_url = 'https://www.googleapis.com/youtube/v3/search'
     request_params = {
         'part': 'snippet',
         'q': query,
         'type': 'video',
-        'key': "YOUTUBE_API_KEY"
+        'key': YOUTUBE_API_KEY
     }
 
     # Envoyer la requête à l'API de recherche YouTube
