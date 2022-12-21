@@ -262,4 +262,23 @@ async def t(ctx, *msg):
     await ctx.send(response["choices"][0]["text"].split("\n")[0])
 
 
+@bot.command()
+async def play(ctx, *, query):
+    # Récupérer le salon vocal dans lequel se trouve l'utilisateur
+    channel = ctx.message.author.voice.channel
+
+    # Rejoindre le salon vocal
+    await channel.connect()
+
+    # Rechercher la vidéo en utilisant l'API de recherche YouTube
+    # et récupérer l'URL de la première vidéo de la liste de résultats
+    video_url = search_video_on_youtube(query)
+
+    # Créer un objet AudioSource pour la vidéo
+    source = discord.FFmpegPCMAudio(video_url)
+
+    # Ajouter la source au lecteur de musique
+    ctx.voice_client.play(source)
+    print(f"Now playing: {query}...")
+
 bot.run(os.environ['DISCORD_TOKEN'])
