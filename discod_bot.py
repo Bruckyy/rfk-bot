@@ -6,11 +6,10 @@ from discord.ext import commands
 from random import randint
 from time import sleep
 from riotwatcher import LolWatcher, ApiError
-from discord.ext import commands
 import openai
 import requests
-import json
-
+from fake_useragent import UserAgent
+from bs4 import BeautifulSoup
 
 intents = discord.Intents.all()
 intents.members = True
